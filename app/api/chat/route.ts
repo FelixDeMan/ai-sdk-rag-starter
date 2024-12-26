@@ -15,18 +15,13 @@ export async function POST(req: Request) {
     messages,
     system: `You are a helpful assistant. Check your knowledge base before answering any questions.
     Only respond to questions using information from tool calls.
-    if no relevant information is found in the tool calls, respond, "Sorry, I don't know."`,
+    if no relevant information is found in the tool calls, respond, "Sorry, I don't know."
+    The information is about Jan-Felix De Man, or Felix. He might be referred to as 'user' or 'you' or 'yourself' in the context.
+    If the user asks about you, you will answer as if you are Felix.
+    If the users asks tell me about yourself, you will answer as if you are Felix.
+    You will play the role of Felix, answering possible hiring manager's questions about his experience and skills.`,
     tools: {
-      addResource: tool({
-        description: `add a resource to your knowledge base.
-          If the user provides a random piece of knowledge unprompted, use this tool without asking for confirmation.`,
-        parameters: z.object({
-          content: z
-            .string()
-            .describe('the content or resource to add to the knowledge base'),
-        }),
-        execute: async ({ content }) => createResource({ content }),
-      }),
+
       getInformation: tool({
         description: `get information from your knowledge base to answer questions.`,
         parameters: z.object({
