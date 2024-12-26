@@ -12,6 +12,7 @@ import { Send } from 'lucide-react'
 export default function Chat() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [isConsulting, setIsConsulting] = useState(false)
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
   
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     initialMessages: [
@@ -62,10 +63,27 @@ export default function Chat() {
     }
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+      const isKeyboard = viewportHeight < window.innerHeight;
+      setIsKeyboardVisible(isKeyboard);
+      
+      if (isKeyboard) {
+        setTimeout(() => scrollToBottom(), 100);
+      }
+    };
+
+    window.visualViewport?.addEventListener('resize', handleResize);
+    return () => window.visualViewport?.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="flex items-center justify-center min-h-[100dvh] bg-zinc-900 p-2 sm:p-4">
-      <Card className="w-full max-w-md h-[100dvh] sm:h-[calc(100vh-2rem)] flex flex-col bg-zinc-800 border-zinc-700">
-        <CardHeader className="flex flex-row items-center gap-3 p-3 sm:p-4 shrink-0">
+      <Card className={`w-full max-w-md flex flex-col bg-zinc-800 border-zinc-700 
+        ${isKeyboardVisible ? 'h-[100%]' : 'h-[100dvh] sm:h-[calc(100vh-2rem)]'}`}>
+        <CardHeader className={`flex flex-row items-center gap-3 p-3 sm:p-4 shrink-0
+          ${isKeyboardVisible ? 'hidden' : ''}`}>
           <Avatar className="h-10 w-10 sm:h-12 sm:w-12">
             <AvatarImage src="/AVATAR.png" alt="AI Assistant" />
             <AvatarFallback>Felix</AvatarFallback>
@@ -127,6 +145,7 @@ export default function Chat() {
               onChange={handleInputChange}
               className="flex-1 bg-zinc-700 border-zinc-600 text-zinc-100 placeholder:text-zinc-400"
               style={{ fontSize: '16px' }}
+              onFocus={() => setTimeout(scrollToBottom, 100)}
             />
             <Button 
               type="submit" 
