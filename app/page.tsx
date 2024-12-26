@@ -76,7 +76,7 @@ export default function Chat() {
           </div>
         </CardHeader>
         <CardContent className="flex-1 overflow-hidden p-4 pt-0">
-          <ScrollArea className="h-full pr-4 overflow-y-auto" viewportClassName="bg-zinc-800">
+          <ScrollArea className="h-full pr-4 overflow-y-auto bg-zinc-800">
             <div className="space-y-4">
               {messages.map((message) => (
                 <div

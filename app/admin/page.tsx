@@ -13,7 +13,7 @@ export default function Chat() {
     api: '/api/admin',
   });
 
-  const handlePasswordSubmit = (e) => {
+  const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (passwordInput === correctPassword) {
       setIsAuthenticated(true);
