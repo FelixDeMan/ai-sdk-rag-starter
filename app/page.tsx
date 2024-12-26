@@ -68,10 +68,10 @@ export default function Chat() {
         <CardHeader className="flex flex-row items-center gap-3 p-4 shrink-0">
           <Avatar className="h-12 w-12">
             <AvatarImage src="/AVATAR.png" alt="AI Assistant" />
-            <AvatarFallback>AI</AvatarFallback>
+            <AvatarFallback>Felix</AvatarFallback>
           </Avatar>
           <div>
-            <h2 className="text-lg font-semibold text-zinc-100">AI Assistant</h2>
+            <h2 className="text-lg font-semibold text-zinc-100">Felix</h2>
             <p className="text-sm text-zinc-400">Always here to help</p>
           </div>
         </CardHeader>
