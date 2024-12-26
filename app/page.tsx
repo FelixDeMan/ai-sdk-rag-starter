@@ -79,9 +79,9 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-[100dvh] bg-zinc-900 p-2 sm:p-4">
+    <div className="flex items-end justify-center min-h-[100dvh] bg-zinc-900 p-2 sm:p-4">
       <Card className={`w-full max-w-md flex flex-col bg-zinc-800 border-zinc-700 
-        ${isKeyboardVisible ? 'h-[100%]' : 'h-[100dvh] sm:h-[calc(100vh-2rem)]'}`}>
+        ${isKeyboardVisible ? 'h-auto pb-1' : 'h-[100dvh] sm:h-[calc(100vh-2rem)]'}`}>
         <CardHeader className={`flex flex-row items-center gap-3 p-3 sm:p-4 shrink-0
           ${isKeyboardVisible ? 'hidden' : ''}`}>
           <Avatar className="h-10 w-10 sm:h-12 sm:w-12">
@@ -93,7 +93,8 @@ export default function Chat() {
             <p className="text-xs sm:text-sm text-zinc-400">Always here to help</p>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 overflow-hidden p-3 sm:p-4 pt-0">
+        <CardContent className={`flex-1 overflow-hidden p-3 sm:p-4 pt-0 
+          ${isKeyboardVisible ? 'max-h-[40vh]' : ''}`}>
           <ScrollArea className="h-full pr-4 overflow-y-auto bg-zinc-800">
             <div className="space-y-4">
               {messages.map((message) => (
