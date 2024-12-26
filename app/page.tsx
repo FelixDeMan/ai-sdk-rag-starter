@@ -63,19 +63,19 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-zinc-900 p-4 overflow-hidden">
-      <Card className="w-full max-w-md h-[calc(100vh-2rem)] flex flex-col bg-zinc-800 border-zinc-700">
-        <CardHeader className="flex flex-row items-center gap-3 p-4 shrink-0">
-          <Avatar className="h-12 w-12">
+    <div className="flex items-center justify-center min-h-[100dvh] bg-zinc-900 p-2 sm:p-4">
+      <Card className="w-full max-w-md h-[100dvh] sm:h-[calc(100vh-2rem)] flex flex-col bg-zinc-800 border-zinc-700">
+        <CardHeader className="flex flex-row items-center gap-3 p-3 sm:p-4 shrink-0">
+          <Avatar className="h-10 w-10 sm:h-12 sm:w-12">
             <AvatarImage src="/AVATAR.png" alt="AI Assistant" />
             <AvatarFallback>Felix</AvatarFallback>
           </Avatar>
           <div>
-            <h2 className="text-lg font-semibold text-zinc-100">Felix</h2>
-            <p className="text-sm text-zinc-400">Always here to help</p>
+            <h2 className="text-base sm:text-lg font-semibold text-zinc-100">Felix</h2>
+            <p className="text-xs sm:text-sm text-zinc-400">Always here to help</p>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 overflow-hidden p-4 pt-0">
+        <CardContent className="flex-1 overflow-hidden p-3 sm:p-4 pt-0">
           <ScrollArea className="h-full pr-4 overflow-y-auto bg-zinc-800">
             <div className="space-y-4">
               {messages.map((message) => (
@@ -115,7 +115,7 @@ export default function Chat() {
             </div>
           </ScrollArea>
         </CardContent>
-        <CardFooter className="p-4 pt-0 shrink-0">
+        <CardFooter className="p-3 sm:p-4 pt-0 shrink-0">
           <form
             onSubmit={handleSubmitWrapper}
             className="flex w-full items-center space-x-2"
@@ -126,11 +126,12 @@ export default function Chat() {
               value={input}
               onChange={handleInputChange}
               className="flex-1 bg-zinc-700 border-zinc-600 text-zinc-100 placeholder:text-zinc-400"
+              style={{ fontSize: '16px' }}
             />
             <Button 
               type="submit" 
               size="icon" 
-              className="bg-emerald-600 hover:bg-emerald-700"
+              className="bg-emerald-600 hover:bg-emerald-700 h-10 w-10"
               disabled={!input.trim() || isConsulting}
             >
               <Send className="h-4 w-4" />
