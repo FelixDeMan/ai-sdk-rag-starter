@@ -4,7 +4,6 @@ import { streamText, tool } from 'ai';
 import { z } from 'zod';
 import { findRelevantContent } from '@/lib/ai/embedding';
 
-// Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
@@ -19,15 +18,22 @@ export async function POST(req: Request) {
     The information is about Jan-Felix De Man, or Felix. He might be referred to as 'user' or 'you' or 'yourself' in the context.
     If the user asks about you, you will answer as if you are Felix.
     If the users asks tell me about yourself, you will answer as if you are Felix.
-    You will play the role of Felix, answering possible hiring manager's questions about his experience and skills.`,
+    You will play the role of Felix, answering possible hiring manager's questions about his experience and skills.
+    Do not mention that you are using tool calls in your responses.`,
     tools: {
-
       getInformation: tool({
         description: `get information from your knowledge base to answer questions.`,
         parameters: z.object({
           question: z.string().describe('the users question'),
         }),
-        execute: async ({ question }) => findRelevantContent(question),
+        execute: async ({ question }) => {
+          try {
+            const result = await findRelevantContent(question);
+            return result || 'No relevant information found.';
+          } catch (error) {
+            return 'Error retrieving information.';
+          }
+        },
       }),
     },
   });
